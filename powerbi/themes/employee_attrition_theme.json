@@ -1,0 +1,237 @@
+{
+  "name": "Employee Attrition | Deep Slate & Petrol v2",
+  "dataColors": [
+    "#488E99",
+    "#C17C66",
+    "#7293BB",
+    "#C2A060",
+    "#8D7DB5",
+    "#6D9D83",
+    "#A67B91",
+    "#8DA5B2"
+  ],
+  "good": "#6D9D83",
+  "neutral": "#C2A060",
+  "bad": "#C17C66",
+  "minimum": "#7293BB",
+  "center": "#C2A060",
+  "maximum": "#C17C66",
+  "null": "#8A999F",
+  "firstLevelElements": "#EBEEF0",
+  "secondLevelElements": "#C5CED3",
+  "thirdLevelElements": "#53636D",
+  "fourthLevelElements": "#AAB7BC",
+  "background": "#36434C",
+  "secondaryBackground": "#2D3942",
+  "tableAccent": "#488E99",
+  "textClasses": {
+    "label": {
+      "fontFace": "Segoe UI",
+      "fontSize": 11,
+      "color": "#EBEEF0"
+    },
+    "title": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 13,
+      "color": "#EBEEF0"
+    },
+    "header": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 12,
+      "color": "#EBEEF0"
+    },
+    "callout": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 30,
+      "color": "#EBEEF0"
+    }
+  },
+  "visualStyles": {
+    "page": {
+      "*": {
+        "background": [
+          {
+            "color": {
+              "solid": {
+                "color": "#2B363F"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "outspace": [
+          {
+            "color": {
+              "solid": {
+                "color": "#222B32"
+              }
+            },
+            "transparency": 0
+          }
+        ]
+      }
+    },
+    "*": {
+      "*": {
+        "background": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#36434C"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "border": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#4B5A65"
+              }
+            },
+            "radius": 6,
+            "width": 1
+          }
+        ],
+        "title": [
+          {
+            "show": true,
+            "fontFamily": "Segoe UI Semibold",
+            "fontSize": 13,
+            "fontColor": {
+              "solid": {
+                "color": "#EBEEF0"
+              }
+            }
+          }
+        ],
+        "legend": [
+          {
+            "fontFamily": "Segoe UI",
+            "fontSize": 10,
+            "labelColor": {
+              "solid": {
+                "color": "#C5CED3"
+              }
+            }
+          }
+        ],
+        "categoryAxis": [
+          {
+            "fontFamily": "Segoe UI",
+            "fontSize": 10,
+            "labelColor": {
+              "solid": {
+                "color": "#C5CED3"
+              }
+            },
+            "titleFontSize": 11
+          }
+        ],
+        "valueAxis": [
+          {
+            "fontFamily": "Segoe UI",
+            "fontSize": 10,
+            "labelColor": {
+              "solid": {
+                "color": "#C5CED3"
+              }
+            },
+            "titleFontSize": 11
+          }
+        ],
+        "outspacePane": [
+          {
+            "backgroundColor": {
+              "solid": {
+                "color": "#29343C"
+              }
+            },
+            "foregroundColor": {
+              "solid": {
+                "color": "#EBEEF0"
+              }
+            },
+            "titleSize": 12,
+            "headerSize": 11,
+            "fontFamily": "Segoe UI",
+            "checkboxAndApplyColor": {
+              "solid": {
+                "color": "#488E99"
+              }
+            },
+            "inputBoxColor": {
+              "solid": {
+                "color": "#36434C"
+              }
+            },
+            "border": false
+          }
+        ],
+        "filterCard": [
+          {
+            "$id": "Applied",
+            "backgroundColor": {
+              "solid": {
+                "color": "#36434C"
+              }
+            },
+            "foregroundColor": {
+              "solid": {
+                "color": "#EBEEF0"
+              }
+            },
+            "fontFamily": "Segoe UI",
+            "textSize": 10,
+            "transparency": 0
+          },
+          {
+            "$id": "Available",
+            "backgroundColor": {
+              "solid": {
+                "color": "#29343C"
+              }
+            },
+            "foregroundColor": {
+              "solid": {
+                "color": "#C5CED3"
+              }
+            },
+            "fontFamily": "Segoe UI",
+            "textSize": 10,
+            "transparency": 0
+          }
+        ]
+      }
+    },
+    "cardVisual": {
+      "*": {
+        "value": [
+          {
+            "fontFamily": "Segoe UI Semibold",
+            "fontSize": 30,
+            "fontColor": {
+              "solid": {
+                "color": "#EBEEF0"
+              }
+            }
+          }
+        ],
+        "label": [
+          {
+            "fontFamily": "Segoe UI",
+            "fontSize": 11,
+            "fontColor": {
+              "solid": {
+                "color": "#C5CED3"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
