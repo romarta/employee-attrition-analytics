@@ -26,4 +26,5 @@ These limitations affect which records and metrics can be used. In particular, t
 - Power BI / Power Query / DAX: Data preparation, modeling, interactive dashboard, and analysis.
 - Python: Data validation and selected statistical checks.
 - Quarto: A concise, reproducible PDF report covering objectives, methodology, findings, limitations, and business recommendations.
-Status: Project setup and data preparation. Analysis results and deliverables will be added as the project progresses.
+
+> Status: Project setup and data preparation. Analysis results and deliverables will be added as the project progresses.
