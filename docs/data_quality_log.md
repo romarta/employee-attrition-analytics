@@ -38,6 +38,27 @@ and logical consistency.
 - Annual employee turnover cannot be calculated
   because termination dates are unavailable.
 
+### Training Data Inconsistencies
+
+The dataset contains 823 performance review records (12.3%)
+where the number of training opportunities taken exceeds
+the number of opportunities offered.
+
+Although the number of offered training opportunities is
+defined for the preceding 12 months, the reference period
+for completed training is not clearly specified.
+
+Consequently, it is not possible to determine whether
+these discrepancies represent data quality issues or
+differences in variable definitions.
+
+**Analytical decision:**
+Both training-related variables were excluded from the
+business analysis to avoid potentially misleading conclusions.
+
+The original data and audit results were retained for
+documentation purposes.
+
 ## Analytical Limitations
 
 The dataset does not provide employee termination dates
