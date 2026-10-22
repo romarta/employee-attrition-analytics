@@ -69,3 +69,54 @@ associations rather than causal relationships.
 
 Additional data quality checks and methodological
 decisions will be documented as the project progresses.
+
+## AI-Based Attrition Discovery
+
+### Analytical Population
+
+The exploratory AI analysis includes 1,217 employees
+with at least one performance review dated on or after
+their hire date.
+
+This represents 82.8% of the employee dataset.
+
+The analytical sample contains 224 employees recorded
+as leavers and 993 employees recorded as current.
+
+### Salary Assumption
+
+Salary is treated as the latest recorded compensation
+amount for each employee.
+
+The dataset does not specify the currency, payment
+period, or exact measurement date.
+
+Salary is therefore included in exploratory
+cross-sectional analysis but is not treated as
+a verified pre-attrition predictor.
+
+### Performance and Satisfaction Data
+
+The most recent chronologically eligible performance
+review was selected for each employee.
+
+However, employee termination dates are unavailable.
+Consequently, it cannot be confirmed that the selected
+reviews preceded employee departures.
+
+Associations involving satisfaction or performance
+ratings must not be interpreted as causal effects
+or validated predictors of attrition.
+
+### Sample Selection
+
+Employees without eligible performance reviews are
+excluded from the AI discovery dataset.
+
+Because review availability differs between leavers
+and current employees, the analytical sample may
+be affected by selection bias.
+
+Key associations involving workplace conditions
+and salary will be compared against the full
+employee dataset during subsequent analysis.
