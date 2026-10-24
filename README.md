@@ -76,26 +76,46 @@ See [Data Quality Assessment](docs/data_quality_log.md) for the detailed audit, 
 
 ## Tools and Project Structure
 
-**Completed:** Power BI Desktop, Power Query, data modeling, DAX, Key Influencers, Decomposition Tree, bookmarks, and What-if parameters. All authored DAX measures are organized in the `_Measures` table.
+**Completed — Power BI:** Power BI Desktop, Power Query, data modeling, DAX, Key Influencers, Decomposition Tree, bookmarks, and What-if parameters. The interactive dashboard consists of six completed pages. All authored DAX measures are organized in the `_Measures` table.
 
-**Upcoming:** Python for independent numerical and statistical checks; Quarto for a reproducible PDF report.
+**In Progress — Python Statistical Analysis:** JupyterLab, pandas, NumPy, SciPy, statsmodels, Seaborn, and Matplotlib. The analysis includes statistical hypothesis testing, effect sizes, confidence intervals, bootstrap methods, and visualizations. Data preparation and statistical analyses of overtime and salary have been completed. Further analyses will examine stock options, department-level differences, multivariable logistic regression, and employee experience.
+
+**Upcoming — Quarto PDF Report:** A reproducible analytical report combining Power BI findings, Python statistical results, data-quality considerations, visualizations, and HR recommendations.
+
+### Project Structure
 
 ```text
 employee-attrition-analytics/
+│
 ├── README.md
-├── powerbi/                # Power BI report (.pbix)
-└── docs/
-    ├── data_quality_log.md
-    ├── employee_experience_findings.md
-    └── retention_strategy_findings.md
+├── datasets/
+│   ├── processed/              # Prepared analytical datasets
+│   └── ...                     # Original source datasets
+│
+├── docs/                       # Data quality and analytical findings
+│
+├── notebooks/
+│   └── attrition_statistical_analysis.ipynb
+│
+├── powerbi/
+│   ├── screenshots/            # AI visual previews and data model
+│   ├── themes/                 # Power BI theme configuration
+│   └── employee_attrition_analytics.pbix
+│
+└── reports/                    # Quarto PDF report (upcoming)
+```
 ```
 
-The tree highlights the main documentation files discussed in this project; other source and supporting files may also be present. Open the `.pbix` file in Power BI Desktop to explore the interactive report. This repository README will be expanded with reproducible Python outputs and the Quarto report when those stages are complete.
+The Jupyter notebook contains the statistical analysis workflow, including data preparation, hypothesis testing, effect size estimation, and Seaborn visualizations.
 
+The final Quarto report will be added after completing the statistical analysis.
 ## Next Steps
 
-1. **Python validation:** reproduce core Power BI counts and rates; assess uncertainty and effect sizes; investigate potential confounding by department and job role.
-2. **Quarto PDF report:** consolidate methods, data-quality decisions, validated findings, interpretation limits, and proposed HR investigations.
-3. **Portfolio polish:** add a dashboard preview and links to the final report and reproducible analysis artifacts.
+1. **Python statistical analysis (in progress):**
+   - **Completed:** Data preparation, statistical analysis of overtime and salary, effect sizes, confidence intervals, and distribution comparisons.
+   - **Next:** Investigate stock option levels, department-level differences, and potential confounding using multivariable logistic regression.
+   - **Further analysis:** Evaluate employee satisfaction, performance ratings, review selection bias, and the robustness of key findings.
 
-> **Interpretation note:** The source data are cross-sectional. Reported attrition percentages describe the proportion of records marked as leavers; observed associations do not establish why employees left.
+2. **Quarto PDF report:** Consolidate Power BI findings and Python statistical results into a reproducible analytical report, including visualizations, methodology, data-quality decisions, interpretation limitations, and actionable HR recommendations.
+
+> **Interpretation note:** The dataset is cross-sectional and does not include employee termination dates. Attrition percentages represent recorded departure proportions, not annual turnover rates. Statistical associations are exploratory and do not establish causality or validate predictions of future employee departures.
