@@ -104,7 +104,6 @@ employee-attrition-analytics/
 │
 └── reports/                    # Quarto PDF report (upcoming)
 ```
-```
 
 The Jupyter notebook contains the statistical analysis workflow, including data preparation, hypothesis testing, effect size estimation, and Seaborn visualizations.
 
