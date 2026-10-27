@@ -1,6 +1,6 @@
 # Employee Attrition & Retention Analytics
 
-> **Project status:** Power BI dashboard complete (6 pages). Full-workforce statistical analysis and logistic regression completed in Python. Employee experience analysis and Quarto reporting are the next phases.
+> **Project status:** Power BI dashboard and Python statistical analysis completed. Reproducible Quarto PDF report in progress.
 
 An end-to-end HR analytics portfolio project examining **where employee departures are concentrated**, **which recorded employee characteristics are associated with departures**, and **where HR could focus further investigation**. The project combines Power BI data modeling and interactive analysis with documented data-quality decisions; exploratory statistical analysis and interpretable logistic regression are being developed in Python, with a reproducible Quarto report planned.
 
@@ -135,10 +135,6 @@ The Jupyter notebook contains the statistical analysis workflow, including data 
 The final Quarto report will be added after completing the statistical analysis.
 ## Next Steps
 
-1. **Python statistical analysis (in progress):**
-   - **Completed:** Full-workforce statistical analysis, effect sizes, confidence intervals, multivariable logistic regression, model comparison, salary nonlinearity, and robustness diagnostics.
-   - **Next:** Analyze employee satisfaction and performance ratings in the eligible-review cohort and assess potential selection bias.
-
-2. **Quarto PDF report:** Consolidate Power BI findings and Python statistical results into a reproducible analytical report, including visualizations, methodology, data-quality decisions, interpretation limitations, and actionable HR recommendations.
+**Quarto PDF report:** Consolidate Power BI findings and Python statistical results into a reproducible analytical report, including visualizations, methodology, data-quality decisions, interpretation limitations, and actionable HR recommendations.
 
 > **Interpretation note:** The dataset is cross-sectional and does not include employee termination dates. Attrition percentages represent recorded departure proportions, not annual turnover rates. Statistical associations are exploratory and do not establish causality or validate predictions of future employee departures.
