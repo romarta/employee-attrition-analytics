@@ -1,8 +1,18 @@
 # Employee Attrition & Retention Analytics
 
-> **Project status:** Power BI dashboard and Python statistical analysis completed. Reproducible Quarto PDF report in progress.
-
 An end-to-end HR analytics portfolio project examining **where employee departures are concentrated**, **which recorded employee characteristics are associated with departures**, and **where HR could focus further investigation**. The project combines Power BI data modeling and interactive analysis with documented data-quality decisions; exploratory statistical analysis and interpretable logistic regression are being developed in Python, with a reproducible Quarto report planned.
+
+## Data Source
+
+The analysis uses an HR Analytics case-study dataset comprising employee records, performance reviews, 
+and supporting lookup tables. The dataset is used to demonstrate workforce analytics, statistical analysis, 
+and evidence-informed HR decision-making.
+
+## Project Deliverables
+- [Interactive Power BI Dashboard](https://app.powerbi.com/view?r=eyJrIjoiNDI2NDQ1ZGUtZjU5Mi00YzQ3LWIxYjItYjIxYzc0NTk5ZTY4IiwidCI6IjJmYWI1MTA4LTBiM2UtNDYwMy05Yjc3LTM2Y2QyYzk0ZmEzZSJ9)
+- [Business Report (PDF)](reports/employee_attrition_report.pdf)
+- [Python Statistical Analysis](notebooks/attrition_statistical_analysis.ipynb)
+- [Quarto Report Source](reports/employee_attrition_report.qmd)
 
 ## Business Questions
 
@@ -12,9 +22,7 @@ An end-to-end HR analytics portfolio project examining **where employee departur
 - Which employee segments warrant further investigation, and what could illustrative scenarios imply?
 - How do data quality and missing dates limit interpretation?
 
-## Power BI Dashboard — Completed
-
-[View the interactive Power BI dashboard](https://app.powerbi.com/view?r=eyJrIjoiNDI2NDQ1ZGUtZjU5Mi00YzQ3LWIxYjItYjIxYzc0NTk5ZTY4IiwidCI6IjJmYWI1MTA4LTBiM2UtNDYwMy05Yjc3LTM2Y2QyYzk0ZmEzZSJ9)
+## Power BI Dashboard
 
 The interactive report contains **six pages**, built with Power Query, DAX measures organized in `_Measures`, and a consistent navigation and filter layout.
 
@@ -52,11 +60,13 @@ These are descriptive findings from the completed Power BI dashboard, **not caus
 | **Compensation** | The recorded departure share ranges from **26.6%** in the lowest salary band (`Below 45k`) to **9.2%** in the highest band (`150k+`). Salary is the latest recorded amount; its currency, payment period, and measurement date are unspecified. |
 | **Stock options** | `Level 0` has a **24.4%** recorded departure share; the pattern across levels is **not monotonic**. |
 | **Priority segments** | Three exploratory segments contain **314 of 1,470 employees (21.4%)** and **116 of 237 recorded leavers (48.9%)**. These were identified in-sample and are groups for further investigation, not a prospective risk model. |
-| **Employee experience** | In the eligible-review cohort, average Work-Life Balance is **3.40** for current employees versus **3.27** for leavers. Self- and manager-rating averages differ only slightly between the groups. |
+| **Employee experience** | No statistically significant differences in satisfaction or performance ratings were identified between leavers and current employees. Adding satisfaction measures did not significantly improve the adjusted logistic regression model (p = 0.779).. |
+
+Statistical analysis confirmed significant associations involving overtime, salary, stock option levels, and business travel. In the final adjusted model, overtime was associated with approximately 4.15 times the odds of recorded attrition. These results are observational and do not establish causality.
 
 The retention What-if feature allows a **user-defined hypothetical percentage reduction** to be applied to the 116 recorded departures in the three priority segments (before any filters). For example, a 10% assumption produces an illustrative difference of 12 departures and an illustrative overall recorded departure share of **15.3%**. This is **an arithmetic sensitivity scenario, not a forecast or an estimated intervention effect**.
 
-## Python Statistical Analysis — Full-Workforce Analysis Completed
+## Python Statistical Analysis
 
 Python was used to extend the exploratory Power BI findings through statistical hypothesis testing, effect size estimation, and interpretable logistic regression.
 
@@ -64,20 +74,23 @@ The statistical analysis was conducted in JupyterLab using **pandas, NumPy, SciP
 
 ### Statistical Methods
 
-| Method | Purpose |
-|---|---|
-| Pearson's Chi-square Test | Test associations between categorical variables and attrition. |
-| Cramér's V | Measure the strength of categorical associations. |
-| Odds Ratio (OR) and 95% Confidence Intervals | Quantify associations between employee characteristics and attrition. |
-| Risk Difference and Newcombe Confidence Intervals | Compare observed departure shares between employee groups. |
-| Shapiro–Wilk Test | Assess salary distribution normality. |
-| Mann–Whitney U Test | Compare salary distributions between current employees and leavers. |
+| Method                                                       | Purpose |
+|--------------------------------------------------------------|---|
+| Pearson's Chi-square Test                                    | Test associations between categorical variables and attrition. |
+| Cramér's V                                                   | Measure the strength of categorical associations. |
+| Odds Ratio (OR) and 95% Confidence Intervals                 | Quantify associations between employee characteristics and attrition. |
+| Risk Difference and Newcombe Confidence Intervals            | Compare observed departure shares between employee groups. |
+| Shapiro–Wilk Test                                            | Assess salary distribution normality. |
+| Mann–Whitney U Test                                          | Compare salary distributions between current employees and leavers. |
 | Rank-Biserial Correlation and Bootstrap Confidence Intervals | Estimate the magnitude and uncertainty of salary differences. |
-| Logistic Regression | Examine associations with attrition while adjusting for other workplace characteristics. |
-| Likelihood Ratio Tests | Compare nested logistic regression models and assess interaction and nonlinear terms. |
-| Variance Inflation Factor (VIF) | Assess multicollinearity among regression predictors. |
-| IQR Method and Cook's Distance | Identify unusual salary observations and potentially influential cases. |
-| Sensitivity Analysis | Evaluate the stability of salary findings after excluding the highest 1% of salaries. |
+| Logistic Regression                                          | Examine associations with attrition while adjusting for other workplace characteristics. |
+| Likelihood Ratio Tests                                       | Compare nested logistic regression models and assess interaction and nonlinear terms. |
+| Variance Inflation Factor (VIF)                              | Assess multicollinearity among regression predictors. |
+| IQR Method and Cook's Distance                               | Identify unusual salary observations and potentially influential cases. |
+| Sensitivity Analysis                                         | Evaluate the stability of salary findings after excluding the highest 1% of salaries. |
+| Holm Correction                                              | Adjust p-values for multiple comparisons of satisfaction and performance ratings. |
+| Weighted Cohen's Kappa and Wilcoxon Signed-Rank Test         | Assess agreement and paired differences between self- and manager ratings. |
+| Reviewed-Cohort Selection Analysis                           | Assess the association between eligible-review availability and recorded attrition. |
 
 Logistic regression is used here as an **interpretable statistical modeling technique also widely applied in supervised machine learning**. The project focuses on explaining observed associations rather than building or validating a predictive employee classification system.
 
@@ -101,12 +114,6 @@ See [Data Quality Assessment](docs/data_quality_log.md) for the detailed audit, 
 
 ## Tools and Project Structure
 
-**Completed — Power BI:** Power BI Desktop, Power Query, data modeling, DAX, Key Influencers, Decomposition Tree, bookmarks, and What-if parameters. The interactive dashboard consists of six completed pages. All authored DAX measures are organized in the `_Measures` table.
-
-**In Progress — Python Statistical Analysis:** JupyterLab, pandas, NumPy, SciPy, statsmodels, Seaborn, and Matplotlib. Completed full-workforce analyses include statistical hypothesis testing, effect sizes, confidence intervals, bootstrap estimation, department-level interaction testing, multivariable logistic regression, nonlinear salary modeling, outlier diagnostics, sensitivity analysis, and multicollinearity assessment. The next stage focuses on employee satisfaction, performance ratings, and the eligible-review cohort.
-
-**Upcoming — Quarto PDF Report:** A reproducible analytical report combining Power BI findings, Python statistical results, data-quality considerations, visualizations, and HR recommendations.
-
 ### Project Structure
 
 ```text
@@ -127,14 +134,17 @@ employee-attrition-analytics/
 │   ├── themes/                 # Power BI theme configuration
 │   └── employee_attrition_analytics.pbix
 │
-└── reports/                    # Quarto PDF report (upcoming)
+├── reports/
+│   ├── employee_attrition_report.qmd
+│   └── employee_attrition_report.pdf
+│
+└── requirements.txt
 ```
+## Reproducing the Analysis
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+python -m ipykernel install --user --name attrition-venv --display-name "Python (Employee Attrition)"
+quarto render reports/employee_attrition_report.qmd --to pdf
 
-The Jupyter notebook contains the statistical analysis workflow, including data preparation, hypothesis testing, effect size estimation, and Seaborn visualizations.
-
-The final Quarto report will be added after completing the statistical analysis.
-## Next Steps
-
-**Quarto PDF report:** Consolidate Power BI findings and Python statistical results into a reproducible analytical report, including visualizations, methodology, data-quality decisions, interpretation limitations, and actionable HR recommendations.
-
-> **Interpretation note:** The dataset is cross-sectional and does not include employee termination dates. Attrition percentages represent recorded departure proportions, not annual turnover rates. Statistical associations are exploratory and do not establish causality or validate predictions of future employee departures.
+Python, Quarto CLI, and TinyTeX are required. The commands are intended for the Windows operating system and should be executed from the root directory of the repository.

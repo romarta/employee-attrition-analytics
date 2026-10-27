@@ -349,7 +349,7 @@ No department-level causal conclusions are supported.
 
 The Employee Experience analysis produced the following main observations:
 
-**Finding 1 — Work-Life Balance is the most distinctive satisfaction dimension.**
+**Work-Life Balance has the largest descriptive mean difference.**
 
 It has the largest overall mean difference between leavers and current employees (-0.13 points).
 
@@ -425,27 +425,35 @@ It does not establish temporal order, causality or predictive performance.
 
 ### 9.6 Statistical Validation
 
-At this stage, no formal hypothesis tests, confidence intervals or adjusted statistical models have been used to validate the observed differences.
+The descriptive findings were subsequently evaluated using statistical methods in Python.
 
-The results should therefore be treated as descriptive findings requiring further statistical assessment.
+Mann–Whitney U tests were applied to compare satisfaction and performance ratings between current employees and recorded leavers. The satisfaction comparisons were adjusted for multiple testing using the Holm method.
+
+None of the four satisfaction dimensions or the two performance measures showed statistically significant differences between the groups.
+
+The findings remain exploratory because review availability differs by attrition status, and the timing of reviews relative to employee departures cannot be verified.
 
 ---
 
-## 10. Further Statistical Validation
+## 10. Completed Statistical Validation
 
-The following analyses are planned for the Python and Quarto reporting stage:
+| Analysis | Result |
+|---|---|
+| Environment Satisfaction | No statistically significant difference |
+| Job Satisfaction | No statistically significant difference |
+| Work-Life Balance | No statistically significant difference |
+| Relationship Satisfaction | No statistically significant difference |
+| SelfRating | No statistically significant difference |
+| ManagerRating | No statistically significant difference |
+| Satisfaction in multivariable logistic regression | Adding four satisfaction measures did not significantly improve model fit (p = 0.779). |
+| Review availability | A statistically significant association with attrition was identified (p < 0.001), indicating potential selection bias. |
+| SelfRating vs ManagerRating | The ratings followed an unusually constrained pattern, limiting the interpretation of agreement and paired differences. |
 
-1. Recalculate average satisfaction and performance ratings directly from the cleaned datasets.
-2. Verify all category-level counts and proportions.
-3. Examine the statistical uncertainty surrounding differences between employee groups.
-4. Apply appropriate methods for ordinal data, including effect-size measures.
-5. Investigate whether observed relationships differ meaningfully across departments.
-6. Consider potential confounding variables such as JobRole, Salary and OverTime.
-7. Interpret results alongside the limitations of review coverage and missing termination dates.
+The statistical findings do not support using the available satisfaction or performance ratings alone to distinguish employees who left from those who remained.
 
-Particular attention will be given to Work-Life Balance and Job Satisfaction.
+However, the absence of statistically significant differences does not establish that employee experience is unrelated to retention.
 
-Any results from statistical tests will be interpreted together with effect sizes, sample sizes and practical relevance.
+The complete statistical analysis is available in `notebooks/attrition_statistical_analysis.ipynb`, with business-level findings presented in `reports/employee_attrition_report.pdf`.
 
 ---
 
@@ -488,6 +496,6 @@ Any retention recommendations should be evaluated using additional organizationa
 
 **Analytical Population:** 1,217 employees with eligible performance reviews.
 
-**Analysis Type:** Descriptive, cross-sectional and exploratory.
+**Analysis Type:** Descriptive Power BI analysis and completed Python statistical validation; cross-sectional and exploratory.
 
-**Validation Status:** Descriptive results verified against Power BI visualizations; statistical validation pending.
+**Validation Status:** Power BI descriptive analysis and Python statistical validation completed. No statistically significant satisfaction or performance differences by attrition status were identified.

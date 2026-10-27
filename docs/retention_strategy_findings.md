@@ -169,16 +169,26 @@ The chart/card title **Illustrative Attrition Share** must not be replaced with 
 7. **No intervention outcomes:** the What-if input has no empirically established efficacy and is not suitable for prediction.
 8. **Training data exclusion:** training opportunity fields were excluded from business analysis because of inconsistent or ambiguous definitions, as recorded in the data quality log.
 
-## 9. Next Validation Steps
+## 9. Statistical Verification and Remaining Limitations
 
-At the Python and Quarto reporting stage:
+Python statistical analysis was completed to evaluate the workplace characteristics associated with recorded employee attrition.
 
-1. Recompute full-population and segment-level counts directly from the curated data.
-2. Report uncertainty intervals for group-level attrition shares and differences.
-3. Examine salary, job role, department, stock options and overtime jointly to assess confounding and sparse categories.
-4. Compare findings across full and eligible-review populations, clearly distinguishing the samples.
-5. Evaluate satisfaction differences using ordinal-appropriate methods, sample sizes and effect sizes.
-6. Specify what additional longitudinal data and prospective evaluation would be required to estimate actual intervention impact.
+The full-workforce analysis confirmed statistically significant associations involving overtime, salary, stock option levels, and business travel.
+
+Multivariable logistic regression was used to examine these characteristics jointly, while additional checks assessed model assumptions, nonlinear salary patterns, influential observations, and the stability of selected findings.
+
+Employee satisfaction and performance ratings were also examined within the eligible-review cohort. No statistically significant differences by attrition status were identified.
+
+The three priority segments identified in Power BI were subsequently examined across the full workforce. Their elevated attrition shares remained visible, but this constitutes an in-sample descriptive check rather than independent predictive validation.
+
+**Remaining limitations:**
+
+- The priority segments have not been independently validated on new employee data.
+- The available records do not establish whether workplace conditions preceded employee departures.
+- The effectiveness of proposed retention interventions has not been evaluated.
+- The illustrative What-if scenario does not predict future departures or quantify preventable attrition.
+
+The completed statistical analysis is documented in `notebooks/attrition_statistical_analysis.ipynb`, and its business implications are presented in `reports/employee_attrition_report.pdf`.
 
 ## 10. Report Reference and Status
 
@@ -189,4 +199,4 @@ At the Python and Quarto reporting stage:
 - **Scenario parameter table:** `Scenario Reduction` (disconnected)
 - **Population:** Full workforce, n = 1,470 (before filtering)
 - **Analysis type:** Descriptive priority setting and hypothetical scenario arithmetic
-- **Status:** Power BI results visually checked for the unfiltered 0% and 10% scenarios; statistical and causal validation not performed
+

@@ -65,7 +65,7 @@ but subgroup sizes have not yet been verified.
 
 ## Validation
 
-The next analytical stage compares the discovered
-patterns against the full workforce of 1,470 employees.
-
-Results to be added after completing Drivers Analysis.
+The three identified segments were compared against the full workforce of 1,470 employees.
+Together, these segments comprise 314 employees and account for 116 recorded attrition cases.
+The segments continued to exhibit elevated attrition rates relative to the overall workforce. However, these findings are based on the same dataset used to identify the segments and therefore do not constitute independent validation.
+No independent predictive validation was performed.

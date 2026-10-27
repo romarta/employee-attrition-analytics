@@ -26,3 +26,10 @@ _freeze/
 # Temporary files
 *.tmp
 *.log
+
+# Quarto and LaTeX intermediate files
+reports/*_files/
+*.aux
+*.out
+*.toc
+*.synctex.gz

@@ -92,7 +92,9 @@ associations rather than causal relationships.
 
 Additional results are documented in the dedicated discovery,
 drivers-analysis, employee-experience and retention-strategy findings files.
-Statistical validation in Python is a separate, subsequent step.
+
+Statistical validation was subsequently completed in Python, including hypothesis testing, effect-size estimation, 
+multivariable logistic regression, model diagnostics, sensitivity analysis, and employee experience analysis.
 
 ## Analytical Populations and Review Coverage
 
@@ -279,13 +281,21 @@ and Job Role filters change its underlying counts.
 
 ## Interpretation and Further Validation
 
-The Power BI report presents descriptive, cross-sectional associations.
-The absence of termination dates prevents verification that performance
-reviews, salary or other recorded characteristics preceded departure.
-The absence of complete employment histories further limits temporal
-interpretation. AI explanations and selected segments are exploratory,
-not causal or independently predictive.
+The Power BI analysis identified descriptive associations between recorded attrition and selected workplace 
+characteristics.
 
-Subsequent Python analysis will verify descriptive calculations, examine
-uncertainty and effect sizes, investigate potential confounding, and
-assess subgroup sizes before the final Quarto PDF report is written.
+These findings were subsequently examined using statistical methods in Python, including hypothesis testing, 
+effect-size estimation, confidence intervals, multivariable logistic regression, and model diagnostics.
+
+Statistical analysis supported significant associations involving overtime, salary, selected stock option levels, 
+and business travel. Employee satisfaction and performance ratings did not show statistically significant differences
+by attrition status in the eligible-review cohort.
+
+The findings remain observational. Missing termination dates and incomplete employment histories prevent confirmation
+that recorded workplace characteristics preceded employee departures.
+
+AI-discovered employee segments remain exploratory and have not been independently validated as predictions of future
+attrition.
+
+The complete statistical workflow is documented in notebooks/attrition_statistical_analysis.ipynb. The final 
+business interpretation, key findings, and HR recommendations are presented in reports/employee_attrition_report.pdf.
