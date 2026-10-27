@@ -1,8 +1,8 @@
 # Employee Attrition & Retention Analytics
 
-> **Project status:** Power BI dashboard complete (6 pages). Python statistical validation and the Quarto PDF report are the next phases.
+> **Project status:** Power BI dashboard complete (6 pages). Full-workforce statistical analysis and logistic regression completed in Python. Employee experience analysis and Quarto reporting are the next phases.
 
-An end-to-end HR analytics portfolio project examining **where employee departures are concentrated**, **which recorded employee characteristics are associated with departures**, and **where HR could focus further investigation**. The project combines Power BI data modeling and interactive analysis with documented data-quality decisions; independent statistical validation and a reproducible written report are planned.
+An end-to-end HR analytics portfolio project examining **where employee departures are concentrated**, **which recorded employee characteristics are associated with departures**, and **where HR could focus further investigation**. The project combines Power BI data modeling and interactive analysis with documented data-quality decisions; exploratory statistical analysis and interpretable logistic regression are being developed in Python, with a reproducible Quarto report planned.
 
 ## Business Questions
 
@@ -56,6 +56,31 @@ These are descriptive findings from the completed Power BI dashboard, **not caus
 
 The retention What-if feature allows a **user-defined hypothetical percentage reduction** to be applied to the 116 recorded departures in the three priority segments (before any filters). For example, a 10% assumption produces an illustrative difference of 12 departures and an illustrative overall recorded departure share of **15.3%**. This is **an arithmetic sensitivity scenario, not a forecast or an estimated intervention effect**.
 
+## Python Statistical Analysis — Full-Workforce Analysis Completed
+
+Python was used to extend the exploratory Power BI findings through statistical hypothesis testing, effect size estimation, and interpretable logistic regression.
+
+The statistical analysis was conducted in JupyterLab using **pandas, NumPy, SciPy, statsmodels, Seaborn, and Matplotlib**.
+
+### Statistical Methods
+
+| Method | Purpose |
+|---|---|
+| Pearson's Chi-square Test | Test associations between categorical variables and attrition. |
+| Cramér's V | Measure the strength of categorical associations. |
+| Odds Ratio (OR) and 95% Confidence Intervals | Quantify associations between employee characteristics and attrition. |
+| Risk Difference and Newcombe Confidence Intervals | Compare observed departure shares between employee groups. |
+| Shapiro–Wilk Test | Assess salary distribution normality. |
+| Mann–Whitney U Test | Compare salary distributions between current employees and leavers. |
+| Rank-Biserial Correlation and Bootstrap Confidence Intervals | Estimate the magnitude and uncertainty of salary differences. |
+| Logistic Regression | Examine associations with attrition while adjusting for other workplace characteristics. |
+| Likelihood Ratio Tests | Compare nested logistic regression models and assess interaction and nonlinear terms. |
+| Variance Inflation Factor (VIF) | Assess multicollinearity among regression predictors. |
+| IQR Method and Cook's Distance | Identify unusual salary observations and potentially influential cases. |
+| Sensitivity Analysis | Evaluate the stability of salary findings after excluding the highest 1% of salaries. |
+
+Logistic regression is used here as an **interpretable statistical modeling technique also widely applied in supervised machine learning**. The project focuses on explaining observed associations rather than building or validating a predictive employee classification system.
+
 ## Data Quality and Methodological Decisions
 
 A documented Power Query audit identified:
@@ -78,7 +103,7 @@ See [Data Quality Assessment](docs/data_quality_log.md) for the detailed audit, 
 
 **Completed — Power BI:** Power BI Desktop, Power Query, data modeling, DAX, Key Influencers, Decomposition Tree, bookmarks, and What-if parameters. The interactive dashboard consists of six completed pages. All authored DAX measures are organized in the `_Measures` table.
 
-**In Progress — Python Statistical Analysis:** JupyterLab, pandas, NumPy, SciPy, statsmodels, Seaborn, and Matplotlib. The analysis includes statistical hypothesis testing, effect sizes, confidence intervals, bootstrap methods, and visualizations. Data preparation and statistical analyses of overtime and salary have been completed. Further analyses will examine stock options, department-level differences, multivariable logistic regression, and employee experience.
+**In Progress — Python Statistical Analysis:** JupyterLab, pandas, NumPy, SciPy, statsmodels, Seaborn, and Matplotlib. Completed full-workforce analyses include statistical hypothesis testing, effect sizes, confidence intervals, bootstrap estimation, department-level interaction testing, multivariable logistic regression, nonlinear salary modeling, outlier diagnostics, sensitivity analysis, and multicollinearity assessment. The next stage focuses on employee satisfaction, performance ratings, and the eligible-review cohort.
 
 **Upcoming — Quarto PDF Report:** A reproducible analytical report combining Power BI findings, Python statistical results, data-quality considerations, visualizations, and HR recommendations.
 
@@ -111,9 +136,8 @@ The final Quarto report will be added after completing the statistical analysis.
 ## Next Steps
 
 1. **Python statistical analysis (in progress):**
-   - **Completed:** Data preparation, statistical analysis of overtime and salary, effect sizes, confidence intervals, and distribution comparisons.
-   - **Next:** Investigate stock option levels, department-level differences, and potential confounding using multivariable logistic regression.
-   - **Further analysis:** Evaluate employee satisfaction, performance ratings, review selection bias, and the robustness of key findings.
+   - **Completed:** Full-workforce statistical analysis, effect sizes, confidence intervals, multivariable logistic regression, model comparison, salary nonlinearity, and robustness diagnostics.
+   - **Next:** Analyze employee satisfaction and performance ratings in the eligible-review cohort and assess potential selection bias.
 
 2. **Quarto PDF report:** Consolidate Power BI findings and Python statistical results into a reproducible analytical report, including visualizations, methodology, data-quality decisions, interpretation limitations, and actionable HR recommendations.
 
