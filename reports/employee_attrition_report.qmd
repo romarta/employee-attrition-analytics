@@ -1,0 +1,620 @@
+---
+title: "Employee Attrition & Retention Analytics"
+subtitle: "Business Insights and Retention Priorities"
+
+format:
+  pdf:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    colorlinks: true
+    geometry:
+      - margin=2.5cm
+
+fontsize: 11pt
+linestretch: 1.15
+
+jupyter: attrition-venv
+
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{python}
+#| include: false
+
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+df_workforce = pd.read_csv("../datasets/processed/workforce_analysis.csv")
+df_reviewed = pd.read_csv("../datasets/processed/reviewed_analysis.csv")
+```
+
+\newpage
+
+# Executive Summary
+
+## Business Context
+
+Employee retention is an important consideration for workforce stability, organizational performance, and effective people management.
+
+The objective is to identify workplace characteristics associated with employee departures, highlight groups that warrant further investigation, and provide evidence-informed priorities for HR decision-making.
+
+The analysis is exploratory. Its findings support decisions about where to investigate potential retention challenges, rather than establishing the causes of employee departures.
+
+## Workforce at a Glance
+
+| Key Indicator | Result |
+|---|---:|
+| Total Employees | 1,470 |
+| Current Employees | 1,233 |
+| Recorded Leavers | 237 |
+| Recorded Departure Share | **16.1%** |
+
+**16.1% of employees in the dataset are recorded as having left the organization.**
+
+This figure represents the proportion of recorded departures in the available data. It is not an annual employee turnover rate because departure dates and a defined observation period are unavailable.
+
+## Key Findings
+
+### Overtime Is Strongly Associated with Employee Departures
+
+Employees recorded as working overtime show a substantially higher departure share than those without overtime:
+
+**30.5% versus 10.4%.**
+
+This relationship remains statistically significant after accounting for salary, stock options, business travel, department, and distance from home.
+
+The pattern is observed across all three departments.
+
+**Business implication:** Workload distribution, staffing capacity, and overtime practices should be priority areas for further HR investigation.
+
+### Compensation and Rewards Are Associated with Retention Patterns
+
+Employees in the lowest salary band have a recorded departure share of **26.6%**, compared with **9.2%** in the highest salary band.
+
+Further statistical analysis indicates that the relationship between salary and departures is nonlinear, although higher compensation is generally associated with fewer departures across most of the observed salary range.
+
+Stock option eligibility also shows notable differences. Employees at Stock Option Level 0 have a higher departure share than those at Levels 1 and 2.
+
+**Business implication:** HR should review compensation competitiveness and reward eligibility within comparable roles, rather than applying uniform adjustments across the workforce.
+
+### Business Travel Is Another Relevant Workplace Factor
+
+Employees who travel frequently have higher adjusted departure odds than employees who travel occasionally or do not travel.
+
+This association remains statistically significant after accounting for the other workplace characteristics included in the analysis.
+
+**Business implication:** Travel expectations, scheduling flexibility, and travel-related workload should be explored through employee feedback and operational reviews.
+
+### Satisfaction and Performance Ratings Provide Limited Additional Evidence
+
+The available employee satisfaction and performance ratings do not show statistically significant differences between current employees and recorded leavers.
+
+Adding four satisfaction measures to a model already accounting for workplace conditions did not materially improve its statistical fit.
+
+However, these findings should be interpreted cautiously because performance reviews are not available for every employee, and their timing relative to employee departures cannot be confirmed.
+
+**Business implication:** The available ratings do not support prioritizing retention interventions based on satisfaction or performance scores alone.
+
+## Where Should HR Focus First?
+
+Three exploratory employee segments account for **116 recorded departures (48.9% of all leavers)** while representing only **314 employees (21.4% of the workforce)**.
+
+| Priority Segment | Employees | Departure Share |
+|---|---:|---:|
+| Sales and HR: Overtime + Stock Option Level 0 | 67 | **56.7%** |
+| Technology: Overtime + Stock Option Level 0 | 115 | **38.3%** |
+| No Overtime + Salary Below 45,000 + Stock Option Level 0 | 132 | **25.8%** |
+: {tbl-colwidths="[70,15,15]"}
+
+These findings suggest that HR should prioritize investigating **workload, compensation, and reward practices** within these groups.
+
+The segments are exploratory and should guide further investigation, not individual predictions of future departures.
+
+## Recommended HR Priorities
+
+| Priority | Recommended Action |
+|---|---|
+| **1. Workload and Overtime Review** | Examine overtime practices, staffing levels, scheduling expectations, and workload distribution across departments. |
+| **2. Compensation and Rewards Assessment** | Review pay competitiveness within comparable roles and investigate stock option eligibility and reward structures. |
+| **3. Targeted Employee Listening** | Conduct confidential stay interviews and voluntary employee surveys to better understand concerns within the identified priority groups. |
+| **4. Retention Monitoring** | Introduce consistent tracking of departure dates, employment conditions, and employee feedback to evaluate future retention initiatives. |
+: {tbl-colwidths="[35,65]"}
+
+These recommendations are proposed areas for investigation, not interventions whose effectiveness has been established by this analysis.
+
+## Overall Conclusion
+
+The strongest statistical evidence in this study concerns **overtime, compensation, stock option levels, and business travel**. These workplace characteristics provide useful starting points for identifying potential retention challenges. The findings suggest that HR should prioritize further investigation of workload and reward practices, supported by direct employee feedback and improved workforce monitoring. Because the available data are observational and lack complete historical information, the analysis does not establish which factors caused employees to leave or how many future departures could be prevented by a particular intervention.
+
+\newpage
+
+# Workforce Attrition Overview
+
+## Analytical Populations
+
+The analysis uses two employee populations for different purposes.
+
+| Workforce Indicator | Full Workforce | Eligible-Review Cohort |
+|---|---:|---:|
+| Total Employees | 1,470 | 1,217 |
+| Current Employees | 1,233 | 993 |
+| Recorded Leavers | 237 | 224 |
+| Recorded Departure Share | **16.1%** | **18.4%** |
+
+**Full Workforce (1,470 employees)**
+
+The complete employee population is used to investigate relationships between recorded departures and employment characteristics, including overtime, compensation, stock options, business travel, and department.
+
+**Eligible-Review Cohort (1,217 employees)**
+
+This group includes employees with at least one performance review dated on or after their hire date. The latest eligible review was selected for each employee. It represents **82.8% of the workforce** and is used for analyses involving employee satisfaction and performance ratings. The remaining **253 employees** are retained in the full-workforce analysis but excluded from review-based comparisons because they do not have an eligible review.
+
+## Important Consideration: Review Coverage
+
+Performance-review availability differs between current employees and recorded leavers. Eligible reviews are available for **94.5% of leavers**, compared with **80.5% of current employees**. As a result, the eligible-review cohort contains a higher proportion of recorded leavers than the full workforce (18.4% versus 16.1%). This difference reflects the composition of the two analytical populations and should not be interpreted as a change in employee departures over time.
+
+Findings based on satisfaction and performance ratings must therefore be interpreted cautiously, as the reviewed employees may not fully represent the overall workforce.
+
+\newpage
+
+# Key Attrition Drivers
+
+This chapter examines the workplace characteristics most strongly associated with recorded employee departures. The comparisons use the full workforce of 1,470 employees. They describe observed relationships rather than the effects of changing employment conditions.
+
+## Overtime and Attrition
+
+Overtime is one of the clearest differences identified between employees who remained with the organization and those recorded as leavers.
+
+```{python}
+#| label: fig-overtime
+#| fig-cap: "Recorded departure share by overtime status."
+#| fig-width: 7
+#| fig-height: 4
+#| fig-align: center
+
+# Calculate observed departure shares
+overtime_share = pd.crosstab(
+    df_workforce["OverTime"],
+    df_workforce["Attrition"],
+    normalize="index"
+)["Yes"] * 100
+
+overtime_share = overtime_share.reindex(["No", "Yes"])
+
+# Create the chart
+fig, ax = plt.subplots(figsize=(7, 4))
+
+sns.barplot(
+    x=["No overtime", "Overtime"],
+    y=overtime_share.values,
+    color="#145C68",
+    edgecolor="#0D414A",
+    ax=ax
+)
+
+# Highlight the overtime group
+ax.patches[1].set_facecolor("#C7775E")
+
+# Display percentages
+ax.bar_label(ax.containers[0], fmt="%.1f%%", padding=5)
+
+# Format the chart
+ax.set_title("Recorded Departures by Overtime Status", fontsize=13)
+ax.set_xlabel("")
+ax.set_ylabel("Recorded Attrition Share (%)")
+ax.set_ylim(0, 40)
+
+sns.despine()
+plt.tight_layout()
+plt.show()
+```
+
+**Key finding:** The observed departure share is approximately 20 percentage points higher among employees with overtime. Statistical testing confirms that the association is significant (p < 0.001). The chart presents an unadjusted comparison. Whether this relationship remains after accounting for other employment characteristics is examined in Chapter 4.
+
+## Salary and Attrition
+
+The relationship between salary and attrition is not uniform across the observed compensation range. The chart below compares the observed pattern with an adjusted statistical model, helping distinguish the raw relationship from the association estimated after accounting for other workplace characteristics.
+
+```{python}
+#| label: fig-salary
+#| fig-cap: "Salary and attrition: observed rolling average (100 employees) and adjusted model estimate."
+#| fig-width: 7.5
+#| fig-height: 4.5
+#| fig-align: center
+
+import statsmodels.formula.api as smf
+
+# Prepare the salary analysis data
+df_salary = df_workforce.copy()
+df_salary["AttritionBinary"] = (df_salary["Attrition"] == "Yes").astype(int)
+df_salary["Salary10k"] = df_salary["Salary"] / 10000
+df_salary = df_salary.rename(columns={"DistanceFromHome (KM)": "DistanceKm"})
+
+# Calculate the observed rolling average
+df_salary = df_salary.sort_values("Salary")
+
+# Calculate the rolling average across the full salary range
+df_salary["ObservedRolling"] = (
+    df_salary["AttritionBinary"]
+    .rolling(window=100, center=True, min_periods=50)
+    .mean() * 100
+)
+
+# Reproduce the adjusted logistic regression model
+salary_model = smf.logit(
+    "AttritionBinary ~ C(OverTime) + Salary10k + I(Salary10k ** 2)"
+    " + C(StockOptionLevel) + C(BusinessTravel)"
+    " + C(Department) + DistanceKm",
+    data=df_salary
+).fit(disp=False)
+
+# Estimate the model relationship across the salary range
+salary_values = np.linspace(df_salary["Salary"].min(), df_salary["Salary"].max(), 70)
+model_values = []
+
+for salary in salary_values:
+    scenario = df_salary.copy()
+    scenario["Salary10k"] = salary / 10000
+    model_values.append(salary_model.predict(scenario).mean() * 100)
+
+# Calculate the salary turning point
+b1 = salary_model.params["Salary10k"]
+b2 = salary_model.params["I(Salary10k ** 2)"]
+
+turning_salary = (-b1 / (2 * b2)) * 10000
+
+# Calculate the model estimate at the turning point
+turning_scenario = df_salary.copy()
+turning_scenario["Salary10k"] = turning_salary / 10000
+
+turning_attrition = salary_model.predict(turning_scenario).mean() * 100
+
+# Create the chart
+fig, ax = plt.subplots(figsize=(7.5, 4.5))
+
+ax.plot(
+    df_salary["Salary"],
+    df_salary["ObservedRolling"],
+    color="#145C68",
+    linewidth=2.5,
+    label="Observed (rolling 100 employees)"
+)
+
+ax.plot(
+    salary_values,
+    model_values,
+    color="#C7775E",
+    linewidth=2.5,
+    label="Adjusted model estimate"
+)
+
+# Mark the model turning point
+ax.scatter(
+    turning_salary,
+    turning_attrition,
+    color="#C7775E",
+    edgecolor="white",
+    s=100,
+    zorder=5
+)
+
+# Label the turning point
+ax.annotate(
+    f"Turning point: {turning_salary:,.0f}",
+    xy=(turning_salary, turning_attrition),
+    xytext=(15, 25),
+    textcoords="offset points",
+    fontsize=9,
+    arrowprops={"arrowstyle": "->", "color": "#C7775E"}
+)
+
+# Format the chart
+ax.set_title("Salary and Recorded Attrition", fontsize=13)
+ax.set_xlabel("Latest recorded salary (unit unspecified)")
+ax.set_ylabel("Attrition (%)")
+ax.set_ylim(bottom=0)
+ax.legend(frameon=False)
+
+sns.despine()
+plt.tight_layout()
+plt.show()
+```
+
+Observed rolling attrition share (up to 100 employees per window) and adjusted model estimate. The marked turning point is model-derived.
+
+**Key finding:** Higher recorded salaries are generally associated with lower attrition across much of the observed compensation range. However, the relationship is nonlinear rather than a consistent decrease at every salary level. The model becomes less reliable at the highest salary levels, where relatively few employees are represented. This part of the curve should therefore be interpreted cautiously. Salary values reflect the latest recorded compensation. Their currency, payment period, and timing relative to employee departures are not specified.
+
+## Stock Options and Attrition
+
+Recorded attrition differs across stock option levels. The following chart compares the proportion of employees who left the organization within each category.
+
+```{python}
+#| label: fig-stock-options
+#| fig-cap: "Recorded attrition share by stock option level."
+#| fig-pos: 'H'
+#| fig-width: 7
+#| fig-height: 4
+#| fig-align: center
+
+# Calculate attrition share for each stock option level
+stock_share = pd.crosstab(
+    df_workforce["StockOptionLevel"],
+    df_workforce["Attrition"],
+    normalize="index"
+)["Yes"] * 100
+
+stock_share = stock_share.reindex([0, 1, 2, 3])
+
+# Create the chart
+fig, ax = plt.subplots(figsize=(6.5, 3.5))
+
+sns.barplot(
+    x=stock_share.index,
+    y=stock_share.values,
+    color="#145C68",
+    edgecolor="black",
+    linewidth=1,
+    ax=ax
+)
+
+# Highlight Stock Option Level 0
+ax.patches[0].set_facecolor("#C7775E")
+
+# Display percentage labels
+ax.bar_label(ax.containers[0], fmt="%.1f%%", padding=5)
+
+# Format the chart
+ax.set_title("Recorded Attrition by Stock Option Level", fontsize=13)
+ax.set_xlabel("Stock Option Level")
+ax.set_ylabel("Recorded Attrition Share (%)")
+ax.set_ylim(0, 30)
+
+sns.despine()
+plt.tight_layout()
+plt.show()
+```
+
+**Key finding:** Stock Option Level 0 has the highest recorded attrition share (24.4%). Differences across stock option levels are statistically significant (p < 0.001). However, the pattern is not consistent across increasing levels: attrition at Level 3 is higher than at Levels 1 and 2. This suggests an association between stock option levels and attrition, but does not establish that increasing stock options would reduce employee departures.
+
+## Business Travel and Attrition
+
+Frequent business travel is associated with higher odds of recorded attrition compared with occasional or no business travel. This association remains statistically significant after accounting for other employment characteristics, including overtime, salary, stock options, department, and distance from home. The finding identifies business travel frequency as an additional area of interest, although it does not establish that travel causes employees to leave.
+
+The adjusted results are presented in the following chapter.
+
+\newpage
+
+# Multivariable Analysis
+
+## Which Associations Remain After Adjustment?
+
+Workplace characteristics do not operate independently. For example, salary, overtime requirements, stock options, and business travel may vary across departments and employee groups. To account for these overlapping characteristics, a multivariable logistic regression model was applied to the full workforce of 1,470 employees. The model examines the association between each factor and recorded attrition while holding the other included characteristics constant.
+
+## Key Results
+
+| Workplace Factor | Adjusted Finding |
+|---|---|
+| **Overtime** | Employees working overtime had **4.15 times higher odds of being recorded as leavers** than employees without overtime. |
+| **Stock Options** | Employees at Stock Option Levels 1 and 2 had approximately **69% and 76% lower odds of being recorded as leavers**, respectively, compared with Level 0. The difference for Level 3 was not statistically significant. |
+| **Business Travel** | Employees with no business travel had approximately **75% lower odds of being recorded as leavers**, while occasional travelers had **51% lower odds**, compared with frequent travelers. |
+| **Salary** | Salary showed a significant nonlinear association with the odds of being recorded as a leaver. The relationship generally decreased across much of the salary range but was not consistent at the highest salary levels. |
+| **Department** | After accounting for other workplace characteristics, department differences in the odds of being recorded as a leaver were not statistically significant. |
+| **Distance from Home** | Commuting distance showed no statistically significant additional association with the odds of being recorded as a leaver. |
+: {tbl-colwidths="[28,72]"}
+
+*These findings account for the other characteristics included in the model. Odds are not the same as probabilities, and the results do not establish that any workplace factor causes employee departures.*
+
+\newpage
+
+## What Do These Results Tell Us?
+
+1. **Overtime remains a prominent factor.** Its association with attrition persists even when differences in compensation, rewards, travel, department, and commuting distance are considered.
+
+2. **Compensation and rewards also remain relevant.** Salary shows a nonlinear relationship with attrition, while Stock Option Levels 1 and 2 are associated with lower departure odds than Level 0.
+
+3. **Business travel contributes additional information.** Frequent travelers have higher adjusted departure odds than employees who travel less frequently.
+
+In contrast, the analysis does not provide sufficient evidence that department or commuting distance has an additional association with attrition after accounting for the other factors.
+
+A separate comparison found no statistically significant evidence that the strength of the overtime association differs between departments.
+
+## Business Interpretation
+
+The results reinforce the importance of examining **workload, compensation, rewards, and travel expectations together**, rather than treating each workplace characteristic in isolation.
+
+However, the model identifies statistical associations, not causes of employee departures. The available data do not establish whether the recorded employment conditions preceded an employee's departure.
+
+The model should therefore support organizational investigation and HR decision-making, not individual employee risk predictions.
+
+\newpage
+
+# Priority Employee Segments
+
+## Where Is Attrition Most Concentrated?
+
+The Power BI analysis identified three employee segments with elevated recorded attrition. Initially discovered in the eligible-review cohort, these segments were subsequently examined across the full workforce.
+
+The table compares the number of recorded leavers and attrition share in each segment.
+
+| Employee Segment | Employees | Leavers | Attrition Share |
+|---|---:|---:|---:|
+| **Sales & HR: Overtime + Stock Option Level 0** | 67 | 38 | **56.7%** |
+| **Technology: Overtime + Stock Option Level 0** | 115 | 44 | **38.3%** |
+| **No Overtime + Salary Below 45,000 + Stock Option Level 0** | 132 | 34 | **25.8%** |
+| Other Employees | 1,156 | 121 | 10.5% |
+: {tbl-colwidths="[70, 10, 10, 10]"}
+
+
+## Key Insights
+
+**The highest attrition share is observed among Sales and HR employees combining overtime with Stock Option Level 0.** More than half of the employees in this segment are recorded as leavers.
+
+**Technology employees with the same overtime and stock option characteristics account for the largest number of leavers among the three priority segments** (44 employees).
+
+The third segment shows that elevated attrition is not limited to employees working overtime. Employees with lower recorded salaries and Stock Option Level 0 also show a higher attrition share than employees outside the priority segments.
+
+All three groups have substantially higher recorded attrition shares than the remaining workforce (10.5%).
+
+## Business Interpretation
+
+These findings provide a basis for focusing further HR investigation on specific combinations of workload and reward characteristics. However, the segments were identified and evaluated using the available dataset. They have not been independently validated, and segment membership should not be used to predict individual employee departures. The salary threshold of 45,000 is an analytical grouping rather than a verified compensation benchmark.
+
+\newpage
+
+# Employee Experience & Performance
+
+## Do Employee Ratings Differ Between Leavers and Current Employees?
+
+Employee satisfaction and performance ratings were examined to assess whether they distinguish employees who left the organization from those who remained. The analysis covered four satisfaction dimensions and two performance measures within the eligible-review cohort.
+
+| Area | Statistical Finding |
+|---|---|
+| Environment Satisfaction | No statistically significant difference |
+| Job Satisfaction | No statistically significant difference |
+| Work-Life Balance | No statistically significant difference |
+| Relationship Satisfaction | No statistically significant difference |
+| Self-Rating | No statistically significant difference |
+| Manager Rating | No statistically significant difference |
+: {tbl-colwidths="[40, 60]"}
+
+Although the Power BI analysis revealed small differences in average ratings, the statistical results do not provide sufficient evidence of systematic differences between leavers and current employees.
+
+## Do Satisfaction Ratings Add Further Insight?
+
+To investigate whether satisfaction provides additional information beyond employment conditions, four satisfaction measures were added to the multivariable attrition model. **The additional satisfaction measures did not significantly improve the model's fit (p = 0.779).**
+
+This indicates that the available ratings did not provide convincing additional statistical information about recorded attrition once the other employment characteristics were considered.
+
+## Business Interpretation and Data Reliability
+
+The findings do not support using the available satisfaction or performance ratings alone to identify employees who may leave. However, the results **should not be interpreted as evidence** that employee experience is unimportant for retention.
+
+The important limitation is that, in the selected reviews, employee self-ratings were always equal to or higher than manager ratings. This unusually constrained pattern limits the interpretation of differences between these measures.
+
+**Overall finding:** The available employee experience data do not provide statistically convincing evidence of additional attrition associations, and their quality limits their usefulness for retention decisions.
+
+\newpage
+
+# Retention Recommendations
+
+The findings provide a basis for prioritizing HR investigations and designing retention initiatives. The proposed actions should be validated through employee feedback and ongoing monitoring before being implemented more broadly.
+
+## Recommended HR Actions
+
+| Priority Area | Proposed Actions | Measures to Monitor |
+|---|---|---|
+| **1. Workload and Overtime** | Review overtime frequency, staffing capacity, and workload distribution. Investigate differences in scheduling practices across teams. | Overtime hours, staffing gaps, workload feedback |
+| **2. Compensation and Rewards** | Compare compensation within similar roles. Review stock option eligibility and employee perceptions of reward fairness. | Role-adjusted compensation, reward eligibility, employee feedback |
+| **3. Business Travel** | Examine travel frequency, scheduling flexibility, and the workload associated with frequent travel. | Travel frequency, travel-related feedback |
+| **4. Employee Listening** | Conduct confidential stay interviews and anonymous surveys to identify concerns within the priority segments. | Survey participation, recurring concerns, employee feedback trends |
+: {tbl-colwidths="[25, 50, 35]"}
+
+These actions focus on understanding potential retention challenges rather than assuming that the observed associations represent direct causes of employee departures.
+
+Employee feedback should be collected voluntarily and confidentially. Priority segment membership should not be used as an individual employee risk score.
+
+## Illustrative Retention Scenario
+
+The Power BI dashboard includes a What-if analysis that illustrates how a hypothetical reduction in departures within the three priority segments would affect the overall recorded attrition share.
+
+The calculation uses the **116 recorded leavers** identified within these segments.
+
+\newpage
+
+| Scenario | Illustrative Result |
+|---|---|
+| Observed workforce | 237 leavers; 16.1% attrition share |
+| Assumed 10% reduction in priority-segment departures | 12 fewer leavers |
+| Illustrative outcome | 225 leavers; 15.3% attrition share |
+: {tbl-colwidths="[40, 60]"}
+
+The scenario demonstrates the potential arithmetic impact of focusing on a relatively small set of employee groups.
+
+**This is not a forecast.** The assumed reduction is hypothetical and is not based on measured intervention effectiveness. The analysis does not establish that the proposed HR actions would prevent 12 departures.
+
+## Implementation and Monitoring
+
+To evaluate future retention initiatives, HR should establish a consistent monitoring process.
+
+1. **Establish a baseline.** Record departure dates, overtime hours, travel frequency, compensation changes, and relevant employee feedback before introducing interventions.
+
+2.  **Investigate employee concerns.** Use confidential interviews and surveys to understand the workplace conditions behind the observed patterns.
+
+3.  **Test and evaluate initiatives.** Introduce suitable changes on a limited scale, monitor outcomes over a defined period, and compare results against an appropriate baseline.
+
+4. **Review and refine.** Evaluate whether observed improvements are sustained and whether different employee groups experience unintended disadvantages.
+
+The immediate priority is to investigate the identified workplace conditions and improve data collection. Reliable measurement over time will be necessary to determine whether future HR interventions actually improve retention.
+
+\newpage
+
+# Data, Methodology & Limitations
+
+## Data Sources and Preparation
+
+The analysis combines employee information, performance-review records, and supporting reference tables. Before analysis, the data underwent quality checks covering missing values, employee identifiers, category consistency, and review-date validity.
+
+Several issues required specific analytical decisions:
+
+- **Review chronology:** Of 6,709 performance-review records, 1,141 were dated before the employee's hire date. These records were excluded from review-based analysis.
+- **Review selection:** The most recent chronologically eligible review was selected for each employee with available qualifying records.
+- **Training data:** In 823 review records, training opportunities taken exceeded opportunities recorded as available. Because the underlying definitions were unclear, training variables were excluded from the analysis.
+- **Original records:** Source records and identified inconsistencies were preserved for audit purposes.
+
+These decisions allowed the analysis to retain the full employee population while limiting review-based comparisons to records meeting the defined eligibility criteria.
+
+## Analytical Approach
+
+The project combined descriptive analysis in Power BI with statistical validation in Python. Power BI was used to explore workforce patterns, compare employee groups, and identify segments with elevated recorded attrition. Statistical methods were then applied to assess whether the observed differences were supported by the data.
+
+The analysis included:
+
+- **Group comparisons:** Statistical tests assessed differences in attrition across workplace characteristics and differences in employee ratings.
+- **Effect sizes and uncertainty:** Additional measures helped evaluate the magnitude and precision of observed associations.
+- **Multivariable logistic regression:** Workplace characteristics were examined together to assess their adjusted associations with recorded attrition.
+- **Model diagnostics and sensitivity checks:** The analysis considered potential nonlinear relationships, influential observations, and the stability of selected results.
+- **Employee experience validation:** Satisfaction and performance ratings were examined separately, including an assessment of whether satisfaction added information beyond employment conditions.
+
+Statistical significance was evaluated using a 5% threshold. However, the interpretation also considered effect sizes, data quality, and practical relevance. The full analytical workflow, including statistical tests and model diagnostics, is documented in the accompanying Python notebook.
+
+## Key Limitations
+
+The findings should be interpreted within the following boundaries.
+
+1. **Missing departure dates**
+
+The dataset identifies employees who left the organization but does not specify when they departed. Consequently, annual turnover rates and changes in attrition over time cannot be calculated.
+
+2. **Unverified timing of employment characteristics**
+
+Salary, overtime, stock options, and other recorded characteristics cannot be reliably linked to a specific point before an employee's departure. Salary currency and payment period are also unspecified. These limitations prevent the analysis from establishing whether the recorded conditions contributed to subsequent departures.
+
+3. **Uneven performance-review coverage**
+
+Employees with eligible performance reviews are not fully representative of the workforce in terms of recorded attrition. Furthermore, although review dates were checked against hire dates, their timing relative to employee departures could not be verified. Findings involving satisfaction and performance ratings therefore require additional caution.
+
+4. **Rating-data constraints**
+
+The relationship between employee self-ratings and manager ratings follows an unusually restricted pattern. This limits the interpretation of differences between the two measures and raises questions about how the ratings were generated.
+
+5. **Observational and exploratory analysis**
+
+The statistical results identify associations, not causal relationships. Similarly, the priority employee segments were identified using the available data and have not been independently validated. The findings should not be used to predict whether an individual employee will leave or to make automated personnel decisions.
+
+6. **Hypothetical retention scenarios**
+
+The Power BI What-if analysis illustrates how user-defined assumptions would change the recorded attrition share mathematically. It does not estimate the actual effectiveness of HR interventions or forecast future employee departures.
+
+## Final Interpretation
+
+The analysis provides evidence of meaningful associations between recorded attrition and selected workplace characteristics.
+
+These findings can support decisions about where HR should investigate retention challenges.
+
+However, determining why employees leave—and whether specific interventions improve retention—would require reliable historical employment records, dated departures, and prospective evaluation of HR initiatives.
