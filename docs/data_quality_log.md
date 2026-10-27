@@ -13,13 +13,13 @@ and logical consistency.
 
 ## Identified Issues
 
-| Issue | Affected Records | Status |
-|---|---:|---|
-| Performance reviews dated before hire | 1,141 | Confirmed inconsistency |
-| Training taken exceeds opportunities offered | 823 | Requires clarification |
-| Unmatched employee IDs in performance reviews | 0 | Passed |
-| Inconsistent tenure values | 0 | Passed |
-
+| Issue | Affected Records | Status                                      |
+|---|---:|---------------------------------------------|
+| Performance reviews dated before hire | 1,141 | Confirmed inconsistency                     |
+| Training taken exceeds opportunities offered | 823 | Requires clarification                      |
+| Unmatched employee IDs in performance reviews | 0 | Passed                                      |
+| Inconsistent tenure values | 0 | Passed                                      |
+| Constrained self-rating and manager-rating differences | 6,708 of 6,709 reviews | Structural pattern - requires clarification |
 ## Source and Review Record Counts
 
 | Measure | Count | Interpretation |
@@ -166,6 +166,26 @@ reviews preceded employee departures.
 Associations involving satisfaction or performance
 ratings must not be interpreted as causal effects
 or validated predictors of attrition.
+
+### Self-Rating and Manager-Rating Structure
+
+An additional Python data-quality check identified a highly constrained relationship between `SelfRating` and `ManagerRating`.
+
+Across all 6,709 original performance review records:
+
+- 3,281 reviews have identical self- and manager ratings.
+- 3,427 reviews have self-ratings exactly one point higher than manager ratings.
+- Only 1 review has a manager rating one point higher than the self-rating.
+
+Therefore, **6,708 of 6,709 reviews (99.99%) follow the same two patterns:** `SelfRating = ManagerRating` or `SelfRating = ManagerRating + 1`.
+
+The pattern is also present in the latest eligible reviews selected for the 1,217-employee analytical cohort.
+
+This highly regular structure may indicate a constraint in the rating process or the underlying data-generation methodology. However, its origin cannot be confirmed from the available documentation.
+
+**Analytical decision:** The original ratings are retained without modification. Statistical agreement measures and paired comparisons are interpreted cautiously, as the observed differences may reflect the structure of the source data rather than independent employee and manager assessments.
+
+The results must not be used as evidence that employees systematically overestimate their performance.
 
 ### Sample Selection
 
